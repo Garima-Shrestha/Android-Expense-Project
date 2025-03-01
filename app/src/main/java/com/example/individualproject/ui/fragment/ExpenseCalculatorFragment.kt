@@ -129,56 +129,53 @@ class ExpenseCalculatorFragment : Fragment() {
     private fun fetchExpenses() {
         repository.getExpenseAllCalculator { expenses, success, message ->
             if (success) {
+                expenseList.clear()
                 expenses?.let {
-                    expenseList.clear()
                     expenseList.addAll(it)
-                    expenseAdapter.notifyDataSetChanged()
-                    calculateTotalExpense() // Calculate total expense after fetching
                 }
+                updateTotalExpense()
+                expenseAdapter.notifyDataSetChanged()
             } else {
                 Snackbar.make(requireView(), "Error: $message", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun calculateTotalExpense() {
-        val total = expenseList.sumOf { it.calExpenseAmount }
-        textTotalExpense.text = "Total Expense: Rs. $total"
-    }
-
-    private fun onUpdateExpense(expense: ExpenseCalculatorModel) {
-        // Populate the EditTexts with the selected expense details
-        editAmount.setText(expense.calExpenseAmount.toString())
-        editDescription.setText(expense.calExpenseDescription)
-
-        // Change the button text to "Update Expense"
-        btnCalculate.text = "Update Expense"
-
-        // Set the update mode flag and store the current expense
-        isUpdateMode = true
-        currentExpense = expense
+    private fun updateTotalExpense() {
+        val totalExpense = expenseList.sumByDouble { it.calExpenseAmount }
+        textTotalExpense.text = "Total Expense : Rs. $totalExpense"
     }
 
     private fun setupSwipeToDelete() {
-        val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                return false
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            0, // No movement in the up/down direction
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT // Allow swiping left and right
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false // No movement
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val expenseToDelete = expenseList[position]
-                onDeleteExpense(expenseToDelete)
+                deleteExpense(expenseToDelete, position)
             }
         }
-        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerView)
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-    private fun onDeleteExpense(expense: ExpenseCalculatorModel) {
+    private fun deleteExpense(expense: ExpenseCalculatorModel, position: Int) {
         repository.deleteExpenseCalculator(expense.id) { success, message ->
             if (success) {
-                fetchExpenses()
-                Snackbar.make(requireView(), "Expense Deleted Successfully!", Snackbar.LENGTH_SHORT).show()
+                expenseList.removeAt(position)
+                expenseAdapter.notifyItemRemoved(position)
+                updateTotalExpense()
+                Snackbar.make(requireView(), "Expense Deleted", Snackbar.LENGTH_SHORT).show()
             } else {
                 Snackbar.make(requireView(), "Error: $message", Snackbar.LENGTH_SHORT).show()
             }
@@ -186,7 +183,17 @@ class ExpenseCalculatorFragment : Fragment() {
     }
 
     private fun getCurrentDate(): String {
-        val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-        return dateFormat.format(java.util.Date())
+        // You can use a simple date format here
+        val currentDate = System.currentTimeMillis()
+        val dateFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+        return dateFormat.format(currentDate)
+    }
+
+    private fun onUpdateExpense(expense: ExpenseCalculatorModel) {
+        isUpdateMode = true
+        currentExpense = expense
+        editAmount.setText(expense.calExpenseAmount.toString())
+        editDescription.setText(expense.calExpenseDescription)
+        btnCalculate.text = "Update Expense" // Change button text to update
     }
 }
