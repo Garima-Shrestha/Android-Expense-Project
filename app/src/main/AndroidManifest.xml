@@ -13,9 +13,14 @@
         android:theme="@style/Theme.IndividualProject"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.UpdateLogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.AddLogActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.RegisterActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ui.activity.NavigationActivity"
             android:exported="false" />
