@@ -44,10 +44,10 @@ class UpdateLogActivity : AppCompatActivity() {
             val purpose = binding.etExpensePurpose.text.toString().trim()
 
             var updatedMap = mutableMapOf<String, Any>()
-            updatedMap["ExpenseAmount"] = amount
-            updatedMap["ExpenseCategory"] = category
-            updatedMap["ExpenseDate"] = date
-            updatedMap["ExpensePurpose"] = purpose
+            updatedMap["expenseAmount"] = amount
+            updatedMap["expenseCategory"] = category
+            updatedMap["expenseDate"] = date
+            updatedMap["expensePurpose"] = purpose
 
             viewModel.updateExpenseLog(
                 logId.toString(),
