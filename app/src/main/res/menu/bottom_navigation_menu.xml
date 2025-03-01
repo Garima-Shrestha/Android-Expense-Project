@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- bottom_navigation_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_expense_log"
+        android:title="Expense Log"
+        android:icon="@drawable/baseline_local_atm_24" />
+    <item
+        android:id="@+id/nav_expense_calculator"
+        android:title="Expense Calculator"
+        android:icon="@drawable/baseline_monetization_on_24" />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_24" />
+</menu>
