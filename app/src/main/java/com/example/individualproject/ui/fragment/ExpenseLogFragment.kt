@@ -164,4 +164,8 @@ class ExpenseLogFragment : Fragment() {
         super.onDestroyView()
         _binding = null  // Prevent memory leaks
     }
+    override fun onResume() {
+        super.onResume()
+        ExpenseViewModel.getExpenseAllLog() // Refresh the data when the fragment resumes
+    }
 }
