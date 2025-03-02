@@ -20,5 +20,3 @@ interface ExpenseLogRepository {
                                  Boolean, String) -> Unit)
 
 }
-
-
