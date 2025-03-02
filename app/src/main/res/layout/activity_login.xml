@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context=".ui.activity.LoginActivity"
+    android:background="@color/bg">
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="18dp">
+        android:padding="18dp"
+        android:background="@color/bg">
 
         <ImageView
             android:id="@+id/loginImage"
@@ -27,7 +29,11 @@
             android:layout_marginBottom="20dp"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginTop="30dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editEmail"
@@ -35,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="E-mail"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +53,10 @@
             app:hintEnabled="true"
             android:layout_gravity="center"
             app:endIconMode="password_toggle"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editPassword"
@@ -54,16 +64,18 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Password" />
+                android:hint="Password"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/btnForget"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
+            android:layout_width="530dp"
+            android:layout_height="36dp"
             android:layout_marginLeft="230dp"
             android:layout_marginBottom="20dp"
             android:text="Forget Password?"
+            android:textColor="@color/redForget"
             android:textSize="16sp" />
 
         <Button
@@ -75,7 +87,7 @@
             android:layout_marginBottom="25dp"
             android:layout_marginTop="40dp"
             app:cornerRadius = "100dp"
-            android:backgroundTint="@color/purple"/>
+            android:backgroundTint="@color/Theme"/>
 
         <TextView
             android:id="@+id/btnSignupnavigate"
@@ -83,6 +95,6 @@
             android:layout_height="wrap_content"
             android:text="New here? Sign up now!"
             android:gravity="center"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/blue" />
     </LinearLayout>
 </ScrollView>

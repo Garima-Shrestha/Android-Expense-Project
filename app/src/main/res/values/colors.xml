@@ -3,6 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#992222</color>
-    <color name="purple">#970BAD</color>
+    <color name="total">#333333</color>
     <color name="blue">#425AE0</color>
+    <color name="bg">#f7f7f7</color>
+    <color name="redForget">#D32F2F </color>
+    <color name="Theme">#047857</color>
 </resources>

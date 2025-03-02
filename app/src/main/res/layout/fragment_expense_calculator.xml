@@ -4,37 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.ExpenseCalculatorFragment">
+    tools:context=".ui.fragment.ExpenseCalculatorFragment"
+    android:background="@color/bg">
 
     <!-- Input Fields for Expense Amount and Description -->
     <android.widget.EditText
         android:id="@+id/editAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="333dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="100dp"
         android:hint="Enter Expense Amount"
         android:inputType="numberDecimal"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="2dp"
+        app:hintTextColor="@color/Theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"/>
 
     <android.widget.EditText
         android:id="@+id/editDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="331dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:hint="Enter Expense Description"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="2dp"
+        app:hintTextColor="@color/Theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editAmount" />
+        app:layout_constraintTop_toBottomOf="@id/editAmount"
+        android:textColor="@color/black"/>
 
     <!-- Button to Calculate/Add Expense -->
     <android.widget.Button
         android:id="@+id/btnCalculate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="317dp"
+        android:layout_height="47dp"
         android:layout_marginTop="24dp"
+        android:background="@color/Theme"
         android:text="Add Expense"
+        android:textColor="@color/white"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editDescription" />
@@ -44,22 +56,37 @@
         android:id="@+id/textTotalExpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:text="Total Expense: 0.0"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCalculate" />
+        app:layout_constraintTop_toBottomOf="@id/btnCalculate"
+        android:textColor="@color/total"
+        android:textStyle="bold"/>
 
     <!-- RecyclerView to Display List of Expenses -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="375dp"
+        android:layout_height="248dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTotalExpense"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textTotalExpense" />
+
+    <TextView
+        android:id="@+id/titlebudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="120dp"
+        android:text="Expenses:"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCalculate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

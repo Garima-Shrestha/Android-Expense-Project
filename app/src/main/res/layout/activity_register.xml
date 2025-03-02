@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.RegisterActivity">
+    tools:context=".ui.activity.RegisterActivity"
+    android:background="@color/bg">
 
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/bg">
 
         <ImageView
             android:id="@+id/registerImage"
@@ -29,14 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:hintEnabled="true"
-            app:hintAnimationEnabled="true">
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter full name"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,14 +50,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:hintEnabled="true"
-            app:hintAnimationEnabled="true">
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,14 +69,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:hintEnabled="true"
-            app:hintAnimationEnabled="true">
-
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contact Number"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,14 +88,17 @@
             android:layout_marginBottom="10dp"
             app:hintEnabled="true"
             app:hintAnimationEnabled="true"
-            app:endIconMode="password_toggle">
-
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/Theme"
+            app:boxStrokeColor="@color/Theme"
+            app:boxStrokeWidth="2dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -93,8 +109,16 @@
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
             app:cornerRadius = "100dp"
-            android:backgroundTint="@color/purple"/>
+            android:backgroundTint="@color/Theme"/>
 
+        <TextView
+            android:id="@+id/btnLoginNavigate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Login"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 </ScrollView>
