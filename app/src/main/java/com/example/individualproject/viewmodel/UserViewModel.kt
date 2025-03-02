@@ -11,9 +11,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class UserViewModel( val repo: UserRepository):ViewModel() {
+class UserViewModel( val repo: UserRepository, context: Context):ViewModel() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+    private var sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+
 
     // Initialize SharedPreferences
     fun init(context: Context) {
@@ -69,8 +71,13 @@ class UserViewModel( val repo: UserRepository):ViewModel() {
         }
     }
 
-    fun logout(callback: (Boolean, String) -> Unit){
-        repo.logout(callback)
+    fun logout(callback: (Boolean, String) -> Unit) {
+        repo.logout { success, message ->
+            if (success) {
+                sharedPreferences.edit().putBoolean("isLoggedIn", false).apply() // Clear login state
+            }
+            callback(success, message)
+        }
     }
 
     fun editProfile(userId: String,data:MutableMap<String,Any>,

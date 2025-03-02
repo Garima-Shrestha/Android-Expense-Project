@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val repo = UserRepositoryImpl(FirebaseAuth.getInstance())
-        userViewModel = UserViewModel(repo)
+        userViewModel = UserViewModel(repo, this)
         userViewModel.init(this) // Initialize with context
         loadingUtils = LoadingUtils(this)
 

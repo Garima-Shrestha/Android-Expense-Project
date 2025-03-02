@@ -1,5 +1,6 @@
 package com.example.individualproject.ui.fragment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.individualproject.databinding.FragmentProfileBinding
 import com.example.individualproject.repository.UserRepositoryImpl
+import com.example.individualproject.ui.activity.LoginActivity
 import com.example.individualproject.utils.ImageUtils
 import com.example.individualproject.utils.LoadingUtils
 import com.example.individualproject.viewmodel.UserViewModel
@@ -49,7 +51,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val repo = UserRepositoryImpl(FirebaseAuth.getInstance())
-        userViewModel = UserViewModel(repo)
+        userViewModel = UserViewModel(repo,requireContext())
 
 
         val currentUser = userViewModel.getCurrentUser()
@@ -84,6 +86,19 @@ class ProfileFragment : Fragment() {
 
         binding.btnUploadImage.setOnClickListener {
             uploadProfileImage()
+        }
+        binding.btnLogout.setOnClickListener {
+            userViewModel.logout { success, message ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show()
+                    // Navigate to login screen and clear back stack
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "Logout failed: $message", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

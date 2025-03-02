@@ -31,7 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         loadingUtils=LoadingUtils(this)
 
         var repo= UserRepositoryImpl(FirebaseAuth.getInstance())
-        userViewModel= UserViewModel(repo)
+        userViewModel= UserViewModel(repo, this)
         binding.signUp.setOnClickListener{
             loadingUtils.show()
             var email= binding.registerEmail.text.toString()

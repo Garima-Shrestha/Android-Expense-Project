@@ -24,7 +24,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
         //initializing auth viewmodel
         var repo = UserRepositoryImpl(FirebaseAuth.getInstance())
-        userViewModel = UserViewModel(repo)
+        userViewModel = UserViewModel(repo, this)
 
         forgetPasswordBinding.btnForget.setOnClickListener {
 
