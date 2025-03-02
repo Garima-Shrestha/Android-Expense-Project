@@ -1,124 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.RegisterActivity"
-    android:background="@color/bg">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:scrollbars="vertical"
+    android:background="@color/bg"
+    tools:context=".ui.activity.RegisterActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp"
+        android:fitsSystemWindows="true"
         android:background="@color/bg">
 
         <ImageView
             android:id="@+id/registerImage"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="164dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="40dp"
-            android:layout_marginTop="70dp"
-            android:contentDescription="User  Icon"
+            android:adjustViewBounds="true"
+            android:contentDescription="App Logo"
+            android:scaleType="fitCenter"
             android:src="@drawable/logo" />
 
-
+        <!-- Full Name Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:hintEnabled="true"
-            app:hintAnimationEnabled="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
             app:hintTextColor="@color/Theme"
             app:boxStrokeColor="@color/Theme"
-            app:boxStrokeWidth="2dp">
+            app:boxStrokeWidth="1.5dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter full name"
-                android:inputType="text"
-                android:textColor="@android:color/black"/>
+                android:hint="Full Name"
+                android:inputType="textCapWords"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:hintEnabled="true"
-            app:hintAnimationEnabled="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
             app:hintTextColor="@color/Theme"
             app:boxStrokeColor="@color/Theme"
-            app:boxStrokeWidth="2dp">
+            app:boxStrokeWidth="1.5dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="E-mail"
+                android:hint="Email Address"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Contact Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:hintEnabled="true"
-            app:hintAnimationEnabled="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
             app:hintTextColor="@color/Theme"
             app:boxStrokeColor="@color/Theme"
-            app:boxStrokeWidth="2dp">
+            app:boxStrokeWidth="1.5dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contact Number"
+                android:hint="Phone Number"
                 android:inputType="phone"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Password Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:hintEnabled="true"
-            app:hintAnimationEnabled="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/Theme"
             app:boxStrokeColor="@color/Theme"
-            app:boxStrokeWidth="2dp">
+            app:boxStrokeWidth="1.5dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <!-- Sign Up Button -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/signUp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Sign up"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            app:cornerRadius = "100dp"
-            android:backgroundTint="@color/Theme"/>
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Create Account"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:iconTint="@color/white"
+            app:strokeColor="@color/Theme"
+            app:strokeWidth="1dp"
+            app:backgroundTint="@color/Theme"/>
 
+        <!-- Login Prompt -->
         <TextView
             android:id="@+id/btnLoginNavigate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Login"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
+            android:text="Already have an account? Sign In"
             android:textColor="@color/blue"
-            android:layout_marginTop="20dp"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
 </ScrollView>

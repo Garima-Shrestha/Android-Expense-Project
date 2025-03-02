@@ -32,16 +32,15 @@ class RegisterActivity : AppCompatActivity() {
 
         var repo= UserRepositoryImpl(FirebaseAuth.getInstance())
         userViewModel= UserViewModel(repo, this)
-        binding.signUp.setOnClickListener{
+        binding.signUp.setOnClickListener {
             loadingUtils.show()
-            var email= binding.registerEmail.text.toString()
-            var password= binding.registerPassword.text.toString()
-            var firstName= binding.registerFname.text.toString()
-            var contact= binding.registerContact.text.toString()
+            var email = binding.registerEmail.text.toString()
+            var password = binding.registerPassword.text.toString()
+            var firstName = binding.registerFname.text.toString()
+            var contact = binding.registerContact.text.toString()
 
-            userViewModel.signup(email, password){
-                    success,message,userId->
-                if(success){
+            userViewModel.signup(email, password) { success, message, userId ->
+                if (success) {
                     var userModel = UserModel(
                         userId.toString(),
                         firstName,
@@ -49,9 +48,8 @@ class RegisterActivity : AppCompatActivity() {
                         email
                     )
 
-                    userViewModel.addUserToDatabase(userId,userModel){
-                            success,message->
-                        if(success){
+                    userViewModel.addUserToDatabase(userId, userModel) { success, message ->
+                        if (success) {
                             loadingUtils.dismiss()
                             Toast.makeText(
                                 this@RegisterActivity,
@@ -63,17 +61,22 @@ class RegisterActivity : AppCompatActivity() {
                             finish()
                         }
                     }
-                }else{
+                } else {
                     loadingUtils.dismiss()
-                    Toast.makeText(this@RegisterActivity,message,Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RegisterActivity, message, Toast.LENGTH_LONG).show()
                 }
             }
-            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
+        }
+        binding.btnLoginNavigate.setOnClickListener {
+            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
-            }
+        // System Bar Insets Handling
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }
