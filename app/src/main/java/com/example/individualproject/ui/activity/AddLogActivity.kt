@@ -64,12 +64,3 @@ class AddLogActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
-
-
-
-
-

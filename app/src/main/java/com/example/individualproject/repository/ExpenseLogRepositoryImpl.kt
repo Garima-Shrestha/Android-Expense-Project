@@ -1,91 +1,119 @@
 package com.example.individualproject.repository
 
 import com.example.individualproject.model.ExpenseLogModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ExpenseLogRepositoryImpl: ExpenseLogRepository {
+class ExpenseLogRepositoryImpl : ExpenseLogRepository {
 
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val ref: DatabaseReference = database.reference.child("expense")
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val usersRef: DatabaseReference = database.reference.child("users")
 
     override fun addExpenseLog(
-        ExpenseLogModel: ExpenseLogModel,
+        expenseLogModel: ExpenseLogModel,
         callback: (Boolean, String) -> Unit
     ) {
-        var id = ref.push().key.toString()
-        ExpenseLogModel.LogId = id
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            val id = usersRef.child(userId).child("expenses").push().key.toString()
+            expenseLogModel.LogId = id
 
-        ref.child(id).setValue(ExpenseLogModel).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "Expense Log Added successfully")
-            }else{
-                callback(false, "${it.exception?.message}")
+            usersRef.child(userId).child("expenses").child(id).setValue(expenseLogModel).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Expense Log Added successfully")
+                } else {
+                    callback(false, "${it.exception?.message}")
+                }
             }
+        } else {
+            callback(false, "User  not authenticated")
         }
     }
 
     override fun updateExpenseLog(
-        ExpenseLogId: String,
+        expenseLogId: String,
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ) {
-        ref.child(ExpenseLogId).updateChildren(data).addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "Expense Log Updated successfully")
-            }else{
-                callback(false, "${it.exception?.message}")
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            usersRef.child(userId).child("expenses").child(expenseLogId).updateChildren(data).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Expense Log Updated successfully")
+                } else {
+                    callback(false, "${it.exception?.message}")
+                }
             }
+        } else {
+            callback(false, "User  not authenticated")
         }
     }
 
-    override fun deleteExpenseLog(ExpenseLogId: String, callback: (Boolean, String) -> Unit) {
-        ref.child(ExpenseLogId).removeValue().addOnCompleteListener{
-            if(it.isSuccessful){
-                callback(true, "Expense Log Deleted successfully")
-            }else{
-                callback(false, "${it.exception?.message}")
+    override fun deleteExpenseLog(expenseLogId: String, callback: (Boolean, String) -> Unit) {
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            usersRef.child(userId).child("expenses").child(expenseLogId).removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Expense Log Deleted successfully")
+                } else {
+                    callback(false, "${it.exception?.message}")
+                }
             }
+        } else {
+            callback(false, "User  not authenticated")
         }
     }
 
     override fun getExpenseLogById(
-        ExpenseLogId: String,
+        expenseLogId: String,
         callback: (ExpenseLogModel?, Boolean, String) -> Unit
     ) {
-        ref.child(ExpenseLogId).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var model = snapshot.getValue(ExpenseLogModel::class.java)
-                callback(model,true, "Expense Log fetched successfully")
-            }
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            usersRef.child(userId).child("expenses").child(expenseLogId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val model = snapshot.getValue(ExpenseLogModel::class.java)
+                    callback(model, true, "Expense Log fetched successfully")
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                callback(null,false,error.message)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    callback(null, false, error.message)
+                }
+            })
+        } else {
+            callback(null, false, "User  not authenticated")
+        }
     }
 
     override fun getExpenseAllLog(callback: (List<ExpenseLogModel>?, Boolean, String) -> Unit) {
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var products= mutableListOf<ExpenseLogModel>()
-                if(snapshot.exists()){
-                    for(eachProduct in snapshot.children){
-                        var data = eachProduct.getValue(ExpenseLogModel:: class.java)
-                        if(data != null){
-                            products.add(data)
+        val userId = FirebaseAuth.getInstance().currentUser ?.uid
+        if (userId != null) {
+            usersRef.child(userId).child("expenses").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val expenses = mutableListOf<ExpenseLogModel>()
+                    if (snapshot.exists()) {
+                        for (eachExpense in snapshot.children) {
+                            val data = eachExpense.getValue(ExpenseLogModel::class.java)
+                            if (data != null) {
+                                expenses.add(data)
+                            }
                         }
+                        callback(expenses, true, "Expense Logs fetched successfully")
+                    } else {
+                        callback(emptyList(), true, "No Expense Logs found")
                     }
-                    callback(products,true,"Expense Log added successfully")
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                callback(null,false,error.message)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    callback(null, false, error.message)
+                }
+            })
+        } else {
+            callback(null, false, "User  not authenticated")
+        }
     }
 }

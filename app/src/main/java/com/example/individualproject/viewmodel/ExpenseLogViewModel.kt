@@ -64,4 +64,3 @@ class ExpenseLogViewModel(private val repository: ExpenseLogRepository) {
         }
     }
 }
-
