@@ -1,5 +1,6 @@
 package com.example.individualproject.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -57,6 +58,9 @@ class RegisterActivity : AppCompatActivity() {
                                 message,
                                 Toast.LENGTH_LONG
                             ).show()
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                 }else{
@@ -71,4 +75,5 @@ class RegisterActivity : AppCompatActivity() {
 
             }
         }
-    }}
+    }
+}
