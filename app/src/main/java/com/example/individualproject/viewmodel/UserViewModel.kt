@@ -2,11 +2,16 @@ package com.example.individualproject.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.individualproject.model.UserModel
 import com.example.individualproject.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
-class UserViewModel( val repo: UserRepository) {
+class UserViewModel( val repo: UserRepository):ViewModel() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -28,10 +33,17 @@ class UserViewModel( val repo: UserRepository) {
     fun signup(email: String, password: String, callback: (Boolean, String, String) -> Unit) {
         repo.signup(email, password, callback)
     }
-
+    private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
     fun addUserToDatabase(userId: String, userModel: UserModel, callback: (Boolean, String) -> Unit) {
-        repo.addUserToDatabase(userId, userModel, callback)
+        databaseReference.child(userId).setValue(userModel)
+            .addOnSuccessListener {
+                callback(true, "Data saved successfully")
+            }
+            .addOnFailureListener { exception ->
+                callback(false, exception.message ?: "Unknown error")
+            }
     }
+
 
     fun forgetPassword(email: String, callback: (Boolean, String) -> Unit) {
         repo.forgetPassword(email, callback)
@@ -40,15 +52,38 @@ class UserViewModel( val repo: UserRepository) {
     fun getCurrentUser (): FirebaseUser ? {
         return repo.getCurrentUser ()
     }
+    var _userData = MutableLiveData<UserModel?>()
+    var userData = MutableLiveData<UserModel?>()
+        get() = _userData
 
-    // Check if the user is logged in
-    fun isLoggedIn(): Boolean {
-        return sharedPreferences.getBoolean("isLoggedIn", false)
+
+    fun getUserFromDatabase(userId:String){
+        repo.getUserFromDatabase(userId){
+                user,success,message->
+            Log.d("UserViewModel", "Database Fetch Success: $success, User: $user")
+            if(success){
+                _userData.postValue(user)
+            }else{
+                _userData.value = null
+            }
+        }
     }
 
-    // Optional: Method to log out the user
-    fun logout() {
-        sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
-        // Additional logout logic if needed (e.g., Firebase sign out)
+    fun logout(callback: (Boolean, String) -> Unit){
+        repo.logout(callback)
+    }
+
+    fun editProfile(userId: String,data:MutableMap<String,Any>,
+                    callback: (Boolean, String) -> Unit){
+        repo.editProfile(userId, data){ success, message ->
+            if (success) {
+                // Fetch the updated user data and update _userData
+                getUserFromDatabase(userId)
+            }
+            callback(success, message)
+        }
+    }
+    fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean("isLoggedIn", false)
     }
 }

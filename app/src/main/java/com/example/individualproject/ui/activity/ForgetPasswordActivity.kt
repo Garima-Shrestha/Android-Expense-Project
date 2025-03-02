@@ -10,6 +10,7 @@ import com.example.individualproject.R
 import com.example.individualproject.databinding.ActivityForgetPasswordBinding
 import com.example.individualproject.repository.UserRepositoryImpl
 import com.example.individualproject.viewmodel.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class ForgetPasswordActivity : AppCompatActivity() {
     lateinit var forgetPasswordBinding: ActivityForgetPasswordBinding
@@ -22,7 +23,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
         setContentView(forgetPasswordBinding.root)
 
         //initializing auth viewmodel
-        var repo = UserRepositoryImpl()
+        var repo = UserRepositoryImpl(FirebaseAuth.getInstance())
         userViewModel = UserViewModel(repo)
 
         forgetPasswordBinding.btnForget.setOnClickListener {

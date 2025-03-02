@@ -12,6 +12,7 @@ import com.example.individualproject.model.UserModel
 import com.example.individualproject.repository.UserRepositoryImpl
 import com.example.individualproject.utils.LoadingUtils
 import com.example.individualproject.viewmodel.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
@@ -28,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
 
         loadingUtils=LoadingUtils(this)
 
-        var repo= UserRepositoryImpl()
+        var repo= UserRepositoryImpl(FirebaseAuth.getInstance())
         userViewModel= UserViewModel(repo)
         binding.signUp.setOnClickListener{
             loadingUtils.show()
