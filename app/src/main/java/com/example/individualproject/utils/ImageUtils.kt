@@ -30,9 +30,11 @@ class ImageUtils(private val fragment: Fragment) {
                     val imageData = result.data
                     if (result.resultCode == AppCompatActivity.RESULT_OK && imageData != null) {
                         val imageUri = imageData.data
+                        Log.d("ImageUtils", "Image selected: $imageUri")
                         callback(imageUri) // Return the selected image URI
                     } else {
                         Log.e("ImageUtils", "Image selection failed or cancelled")
+                        callback(null) // Ensure callback is called with null if selection fails
                     }
                 }
 

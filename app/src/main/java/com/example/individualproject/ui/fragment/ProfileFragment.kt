@@ -81,6 +81,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileImage.setOnClickListener {
+            Log.d("ProfileFragment", "Profile image clicked, launching gallery...")
             imageUtils.launchGallery(requireContext())
         }
 
@@ -103,32 +104,40 @@ class ProfileFragment : Fragment() {
     }
 
     private fun uploadProfileImage() {
-        val userId = userViewModel.getCurrentUser()?.uid
+        val userId = userViewModel.getCurrentUser ()?.uid
+        Log.d("ProfileFragment", "User  ID: $userId")
+        Log.d("ProfileFragment", "Image URI: $imageUri")
+
         if (userId != null && imageUri != null) {
             loadingUtils = LoadingUtils(requireContext())
             loadingUtils.show()
 
+            Log.d("ProfileFragment", "Starting image upload for user ID: $userId with URI: $imageUri")
             userViewModel.repo.uploadImage(requireContext(), imageUri!!) { imageUrl ->
                 loadingUtils.dismiss()
                 if (imageUrl != null) {
-                    val currentUser = userViewModel.userData.value
+                    Log.d("ProfileFragment", "Image uploaded successfully: $imageUrl")
+                    val currentUser  = userViewModel.userData.value
                     val updateData = mutableMapOf<String, Any>(
                         "imageUrl" to imageUrl,
-                        "email" to (currentUser?.email ?: ""),
-                        "firstName" to (currentUser?.firstName ?: "")
+                        "email" to (currentUser ?.email ?: ""),
+                        "firstName" to (currentUser ?.firstName ?: "")
                     )
                     userViewModel.editProfile(userId, updateData) { success, message ->
                         if (success) {
                             Toast.makeText(requireContext(), "Image uploaded successfully!", Toast.LENGTH_SHORT).show()
                         } else {
+                            Log.e("ProfileFragment", "Failed to update profile: $message")
                             Toast.makeText(requireContext(), "Failed to update profile!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
+                    Log.e("ProfileFragment", "Image upload failed!")
                     Toast.makeText(requireContext(), "Image upload failed!", Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
+            Log.e("ProfileFragment", "User  ID or Image URI is null")
             Toast.makeText(requireContext(), "Select an image first!", Toast.LENGTH_SHORT).show()
         }
     }

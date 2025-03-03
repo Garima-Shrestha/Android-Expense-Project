@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.provider.OpenableColumns
+import android.util.Log
 import com.cloudinary.Cloudinary
 import com.example.individualproject.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -136,6 +137,7 @@ class UserRepositoryImpl(var auth: FirebaseAuth):UserRepository{
 
                 fileName = fileName?.substringBeforeLast(".") ?: "uploaded_image"
 
+                Log.d("User RepositoryImpl", "Uploading image with file name: $fileName")
                 val response = cloudinary.uploader().upload(
                     inputStream, ObjectUtils.asMap(
                         "public_id", fileName,
@@ -147,12 +149,13 @@ class UserRepositoryImpl(var auth: FirebaseAuth):UserRepository{
 
                 imageUrl = imageUrl?.replace("http://", "https://")
 
+                Log.d("User RepositoryImpl", "Image upload response: $response")
                 Handler(Looper.getMainLooper()).post {
                     callback(imageUrl)
                 }
 
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("User RepositoryImpl", "Image upload failed", e)
                 Handler(Looper.getMainLooper()).post {
                     callback(null)
                 }
