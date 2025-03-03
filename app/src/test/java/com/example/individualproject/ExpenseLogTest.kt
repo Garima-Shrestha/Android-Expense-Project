@@ -1,9 +1,10 @@
-package com.example.individualproject.repository
+package com.example.individualproject
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.example.individualproject.model.ExpenseLogModel
+import com.example.individualproject.repository.ExpenseLogRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import org.junit.Assert.*
@@ -16,8 +17,8 @@ import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import java.lang.reflect.Field
 
-class ExpenseLogRepositoryTest {
 
+class ExpenseLogTest {
     @Mock
     private lateinit var mockAuth: FirebaseAuth
 
@@ -36,7 +37,7 @@ class ExpenseLogRepositoryTest {
     @Mock
     private lateinit var mockTask: Task<Void>
 
-    @Mock
+    Mock
     private lateinit var mockDataSnapshot: DataSnapshot
 
     @Captor
