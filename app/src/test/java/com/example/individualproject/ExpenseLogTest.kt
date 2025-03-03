@@ -37,7 +37,7 @@ class ExpenseLogTest {
     @Mock
     private lateinit var mockTask: Task<Void>
 
-    Mock
+    @Mock
     private lateinit var mockDataSnapshot: DataSnapshot
 
     @Captor
