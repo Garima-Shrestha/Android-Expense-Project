@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@color/bg">
+    android:background="@color/bg"
+    android:padding="16dp">
 
     <!-- Expense Amount -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/amountLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
         android:hint="Expense Amount"
-        app:hintTextColor="@color/red"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="50dp"
+        app:hintTextColor="@color/Theme"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ExpenseAmountEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:inputType="number"
-            android:textColor="@android:color/black"/>
+            android:padding="12dp"
+            android:textColor="@android:color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Expense Category-->
+    <!-- Expense Category -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/categoryLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:hint="Expense Category"
-        app:hintTextColor="@color/red"
-        android:layout_marginBottom="12dp"
+        app:hintTextColor="@color/Theme"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/amountLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ExpenseCategoryEditText"
@@ -48,63 +54,78 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:padding="12dp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Expense Date -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/dateLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:hint="Expense Date"
-        app:hintTextColor="@color/red"
-        android:layout_marginBottom="12dp"
+        app:hintTextColor="@color/Theme"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/categoryLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ExpenseDateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:inputType="text"
             android:padding="12dp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Expense Purpose -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/purposeLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:hint="Expense Purpose"
-        app:hintTextColor="@color/red"
-        android:layout_marginBottom="20dp"
+        app:hintTextColor="@color/Theme"
+        app:boxStrokeColor="@color/Theme"
+        app:boxStrokeWidth="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/dateLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ExpensePurposeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3"
             android:inputType="textMultiLine"
+            android:maxLines="3"
             android:padding="12dp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Submit Button (Replaced FloatingActionButton inside CardView) -->
+    <!-- Submit Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/floatingActionButton2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:elevation="4dp"
+        android:padding="12dp"
         android:text="Add Expense Log"
         android:textAllCaps="false"
-        android:textSize="18sp"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        app:cornerRadius="12dp"
-        app:backgroundTint="@color/Theme"
         android:textColor="@color/white"
-        android:elevation="4dp"/>
+        android:textSize="18sp"
+        app:backgroundTint="@color/Theme"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/purposeLayout" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
